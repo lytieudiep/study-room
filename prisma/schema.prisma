@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  username       String    @unique
+  password       String
+  email          String    @unique
+  profilePicture String?
+  lastLogin      DateTime?
+
+  // Define the relationship with Rooms and Participants
+  rooms        Room[]
+  participants Participant[]
+
+  notes  Note[]
+  tasks  Task[]
+  musics Music[]
+}
+
+model Room {
+  id              Int      @id @default(autoincrement())
+  name            String
+  videoCallLink   String?
+  roomLink        String?
+  backgroundImage String?
+  creationDate    DateTime
+
+  notes        Note[]
+  tasks        Task[]
+  music        Music[]
+
+  owner        User          @relation(fields: [userId], references: [id])
+  userId       Int
+
+  participants Participant[]
+}
+
+model Participant {
+  id       Int      @id @default(autoincrement())
+  roomId   Int
+  userId   Int
+  joinDate DateTime
+
+  // Define the relationship with Users and Rooms
+  user User @relation(fields: [userId], references: [id])
+  room Room @relation(fields: [roomId], references: [id])
+}
+
+model Note {
+  id           Int      @id @default(autoincrement())
+  roomId       Int
+  userId       Int
+  noteContent  String
+  creationDate DateTime
+
+  // Define the relationship with Users and Rooms
+  user User @relation(fields: [userId], references: [id])
+  room Room @relation(fields: [roomId], references: [id])
+}
+
+model Task {
+  id               Int      @id @default(autoincrement())
+  roomId           Int
+  userId           Int
+  taskDescription  String
+  dueDate          DateTime
+  completionStatus Boolean
+
+  // Define the relationship with Users and Rooms
+  user User @relation(fields: [userId], references: [id])
+  room Room @relation(fields: [roomId], references: [id])
+}
+
+model Music {
+  id         Int      @id @default(autoincrement())
+  roomId     Int
+  userId     Int
+  musicLink  String
+  uploadDate DateTime
+
+  // Define the relationship with Users and Rooms
+  user User @relation(fields: [userId], references: [id])
+  room Room @relation(fields: [roomId], references: [id])
+}
