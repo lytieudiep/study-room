@@ -7,8 +7,6 @@ import TodoList from '../../../components/TodoList';
 import Layout from '../../../components/Layout';
 import MusicPlayer from '../../../components/MusicPlayer';
 
-import "../../../stylesheets/globals.css";
-import "../../../stylesheets/styles.css";
 
 interface SpaceIdParams {
     spaceId: string
