@@ -17,9 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const saltRounds = 10;
 
             const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-            console.log(email, hashedPassword);
-
+            
             let prismaClient = new PrismaClient();
             await prismaClient.user.create({
                 data: {

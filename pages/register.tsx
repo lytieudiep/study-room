@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -64,11 +65,16 @@ export default function RegisterPage() {
                 }}
             />
         </div>
-        <div>
+        <div className="inline-flex space-x-3">
             <button
                 type="submit"
-                className="btn"
+                className="btn btn-primary"
             >Register</button>
+            <Link className="text-center justify-center" href="/login">
+                <button className="btn" type="button">
+                    Login
+                </button>
+            </Link>
         </div>
     </form>
 }
