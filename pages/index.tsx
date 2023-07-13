@@ -1,12 +1,65 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import React, { useState, useEffect } from 'react';
+import { Socket } from 'socket.io';
+import { io } from "socket.io-client";
 
+const socket = io();
+
+
+type Message = {
+  author: string;
+  message: string;
+};
 
 export default function Home() {
+  const [username, setUsername] = useState("");
+  const [chosenUsername, setChosenUsername] = useState("");
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<Array<Message>>([]);
+
+  useEffect(() => {
+    socketInitializer();
+  }, []);
+
+  const socketInitializer = async () => {
+    // We just call it because we don't need anything else out of it
+    await fetch("/api/socket");
+
+    socket.on("newIncomingMessage", (msg) => {
+      setMessages((currentMsg) => [
+        ...currentMsg,
+        { author: msg.author, message: msg.message },
+      ]);
+      console.log(messages);
+    });
+  };
+
+  const sendMessage = async () => {
+    socket.emit("createdMessage", { author: chosenUsername, message });
+    setMessages((currentMsg) => [
+      ...currentMsg,
+      { author: chosenUsername, message },
+    ]);
+    setMessage("");
+  };
+
+  const handleKeypress = (e: { keyCode: number; }) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      if (message) {
+        sendMessage();
+      }
+    }
+  };
+
   return (
     <>
+      <div>
+        <h1>Chat app</h1>
+      </div>
       {/* Navbar */}
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-primary-focus">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -24,13 +77,13 @@ export default function Home() {
               <li><a>Item 3</a></li>
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+          <a className="btn btn-ghost normal-case text-xl text-base-100">FocusZone</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 text-base-100">
             <li><a>Item 1</a></li>
             <li tabIndex={0}>
-              <details>
+              <details className="text-base-100">
                 <summary>Parent</summary>
                 <ul className="p-2">
                   <li><a>Submenu 1</a></li>
@@ -47,17 +100,24 @@ export default function Home() {
       </div>
 
       {/* Hero */}
-      <div className="hero min-h-screen bg-base-200">
+      <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://images.pexels.com/photos/6985132/pexels-photo-6985132.jpeg)' }}>
+        <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center">
           <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Welcome</h1>
-            <p className="py-6">Your study room to connect and complete the homework. Try new way manage the tasks</p>
+            <h1 className="text-7xl text-base-100 font-bold">Welcome to your virtual study room</h1>
+            <p className="text-base-100 py-6">Your study room to connect and complete the homework. Try new way manage the tasks</p>
             <button className="btn btn-primary">
-              <Link href="/space">Get started</Link>
-              </button>
+              <Link href="/register">Register</Link>
+            </button>
+            <br></br>
+            <button className="btn btn-active btn-link text-accent">
+              <Link href="/login">Or already have an account?</Link>
+            </button>
           </div>
         </div>
       </div>
+
+
     </>
 
 

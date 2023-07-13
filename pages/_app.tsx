@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../stylesheets/globals.css';
 
 import "../stylesheets/styles.css";
+
+
 
 interface MyAppProps {
     Component: React.ComponentType;

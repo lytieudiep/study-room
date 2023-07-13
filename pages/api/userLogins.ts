@@ -6,8 +6,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "POST") {
         const email = req.body.email;
         const password = req.body.password;
-        const saltRounds = 10;
-
         const prismaClient = new PrismaClient();
         const user = await prismaClient.user.findUnique(
             {
