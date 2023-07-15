@@ -1,8 +1,8 @@
 // SpaceCard.js
-import { Room } from '@prisma/client';
+import { RoomTruncated } from '@/entities/rooms';
 import React from 'react';
 
-const RoomCard = ({ room }: {room: Room}) => {
+const RoomCard = ({ room }: {room: RoomTruncated}) => {
   return (
     <div className="w-full flex justify-center items-center">
       <div className="w-80 bg-white rounded-lg shadow-md p-4">

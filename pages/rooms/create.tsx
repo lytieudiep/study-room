@@ -1,22 +1,31 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const CreateRoom = () => {
 
     const [roomName, setRoomName] = useState<undefined | string>();
+    const router = useRouter();
 
     const handleSubmit = async () => {
         if (roomName) {
             let response = await fetch(
                 "/api/newRoom", {
                 method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
                 body: JSON.stringify({
-
                     name: roomName
                 })
             });
-
+            if (response.status == 200) {
+                let respBody = await response.json();
+                let roomId = respBody["id"];
+                router.push(`/rooms/${roomId}`);
+            }
         }
     }
 

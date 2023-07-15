@@ -1,7 +1,60 @@
+import { PrismaClient } from "@prisma/client";
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { authOptions } from "../api/auth/[...nextauth]";
+import RoomCard from "@/components/RoomCard";
+import { RoomTruncated } from "@/entities/rooms";
 
-const MyRooms = () => {
+interface MyRoomProps {
+    rooms: RoomTruncated[]
+}
+
+export const getServerSideProps: GetServerSideProps<MyRoomProps> = async (context) => {
+    const session = await getServerSession(context.req, context.res, authOptions);
+    if (session) {
+        const prismaClient = new PrismaClient();
+        const userEmail = session.user?.email?.toString();
+        const user = await prismaClient.user.findUnique({
+            where: {
+                email: userEmail,
+            }
+        });
+        if (user) {
+            const rooms = await prismaClient.room.findMany({
+                where: {
+                    userId: user.id
+                }
+            });
+            return {
+                props: {
+                    rooms: rooms.map((room) => {
+                        return {
+                            ...room,
+                            creationDate: room.creationDate.toISOString()
+                        }
+                    })
+                }
+            }
+        } else {
+            return {
+                props: {
+                    rooms: []
+                }
+            }
+        }
+    }
+
+    return {
+        props: {
+            rooms: []
+        }
+    }
+}
+
+
+const MyRooms: React.FC<MyRoomProps> = ({ rooms }) => {
     const sessionData = useSession();
     return <>
         <div className="space-y-4 pt-16">
@@ -12,6 +65,14 @@ const MyRooms = () => {
                 <Link href="/rooms/create">
                     <button className="btn btn-primary">Create New Room</button>
                 </Link>
+            </div>
+
+            <div className="flex justify-center items-center">
+                {rooms?.map((room) => {
+                    return <div key={room.id}>
+                        <RoomCard room={room} />
+                    </div>
+                })}
             </div>
         </div>
     </>
