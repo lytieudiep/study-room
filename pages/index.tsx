@@ -1,3 +1,5 @@
+import SignInButton from '@/components/SignInButton';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
@@ -5,12 +7,12 @@ import { Socket } from 'socket.io';
 import { io } from "socket.io-client";
 
 export default function Home() {
-  
 
-
+  const session = useSession();
+  const loggedIn = session.status == "authenticated";
   return (
     <>
-      
+
       {/* Navbar */}
       <div className="navbar bg-primary-focus">
         <div className="navbar-start">
@@ -48,7 +50,16 @@ export default function Home() {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+
+          {(loggedIn) ?
+            <Link href={'/rooms'}
+              className="btn btn-secondary"
+            >
+              My Rooms
+            </Link>
+            :
+            <SignInButton />}
+
         </div>
       </div>
 

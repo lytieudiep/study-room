@@ -1,37 +1,27 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" TEXT,
+    "email" TEXT NOT NULL,
+    "profilePicture" TEXT,
+    "lastLogin" TIMESTAMP(3),
 
-  - The primary key for the `Room` table will be changed. If it partially fails, the table could be left without primary key constraint.
-  - You are about to drop the column `ownerId` on the `Room` table. All the data in the column will be lost.
-  - You are about to drop the column `room_id` on the `Room` table. All the data in the column will be lost.
-  - You are about to drop the column `room_name` on the `Room` table. All the data in the column will be lost.
-  - Added the required column `creationDate` to the `Room` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `name` to the `Room` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `userId` to the `Room` table without a default value. This is not possible if the table is not empty.
-  - Made the column `username` on table `User` required. This step will fail if there are existing NULL values in that column.
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
-*/
--- DropForeignKey
-ALTER TABLE "Room" DROP CONSTRAINT "Room_ownerId_fkey";
+-- CreateTable
+CREATE TABLE "Room" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "videoCallLink" TEXT,
+    "roomLink" TEXT,
+    "backgroundImage" TEXT,
+    "creationDate" TIMESTAMP(3) NOT NULL,
+    "userId" INTEGER,
 
--- AlterTable
-ALTER TABLE "Room" DROP CONSTRAINT "Room_pkey",
-DROP COLUMN "ownerId",
-DROP COLUMN "room_id",
-DROP COLUMN "room_name",
-ADD COLUMN     "backgroundImage" TEXT,
-ADD COLUMN     "creationDate" TIMESTAMP(3) NOT NULL,
-ADD COLUMN     "id" SERIAL NOT NULL,
-ADD COLUMN     "name" TEXT NOT NULL,
-ADD COLUMN     "roomLink" TEXT,
-ADD COLUMN     "userId" INTEGER NOT NULL,
-ADD COLUMN     "videoCallLink" TEXT,
-ADD CONSTRAINT "Room_pkey" PRIMARY KEY ("id");
-
--- AlterTable
-ALTER TABLE "User" ADD COLUMN     "lastLogin" TIMESTAMP(3),
-ADD COLUMN     "profilePicture" TEXT,
-ALTER COLUMN "username" SET NOT NULL;
+    CONSTRAINT "Room_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Participant" (
@@ -77,8 +67,14 @@ CREATE TABLE "Music" (
     CONSTRAINT "Music_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
 -- AddForeignKey
-ALTER TABLE "Room" ADD CONSTRAINT "Room_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Room" ADD CONSTRAINT "Room_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Participant" ADD CONSTRAINT "Participant_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

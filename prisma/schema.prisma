@@ -13,7 +13,7 @@ datasource db {
 model User {
   id             Int       @id @default(autoincrement())
   username       String    @unique
-  password       String
+  password       String?
   email          String    @unique
   profilePicture String?
   lastLogin      DateTime?
@@ -35,12 +35,12 @@ model Room {
   backgroundImage String?
   creationDate    DateTime
 
-  notes        Note[]
-  tasks        Task[]
-  music        Music[]
+  notes Note[]
+  tasks Task[]
+  music Music[]
 
-  owner        User          @relation(fields: [userId], references: [id])
-  userId       Int
+  owner  User? @relation(fields: [userId], references: [id])
+  userId Int?
 
   participants Participant[]
 }

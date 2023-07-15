@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import PomodoroTimer from '../../../components/PomodoroTimer';
 import TodoList from '../../../components/TodoList';
-import Layout from '../../../components/Layout';
 import MusicPlayer from '../../../components/MusicPlayer';
 import { FiVideo } from 'react-icons/fi';
+import SignInButton from '@/components/SignInButton';
+import { useSession } from 'next-auth/react';
+import SignOutButton from '@/components/SignOutButton';
 
 
 
-interface SpaceIdParams {
+interface RoomParams {
     spaceId: string
 }
 
@@ -71,13 +73,15 @@ function Chatbox() {
     }
 }
 
-export default function SpaceId({ params }: { params: SpaceIdParams }) {
+export default function RoomPage({ params }: { params: RoomParams }) {
 
     const [videoId, setVideoId] = useState('');
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setVideoId(event.target.value);
     };
+
+    const session = useSession();
 
     return (
         <>
@@ -113,9 +117,10 @@ export default function SpaceId({ params }: { params: SpaceIdParams }) {
                     </nav>
 
                     <div className="flex-none">
-                        <button className="btn btn-square btn-ghost">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-                        </button>
+                        {(session.status == "authenticated") ?
+                            <SignOutButton />
+                            : <SignInButton />
+                        }
                     </div>
                 </div>
                 <div className="grid grid-cols-2">
