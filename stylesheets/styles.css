@@ -1,7 +1,10 @@
 .container {
-  background-image: url('https://e0.pxfuel.com/wallpapers/353/761/desktop-wallpaper-lofi-hip-hop-chill-beats-sleep-study-focus-relax-music-in-2022-computer-art-cute-laptop.jpg');
+  width: 100%;
+  height: 100%;
+  background-image: url('https://cdnb.artstation.com/p/assets/images/images/029/320/295/original/bogdan-mb0sco-coffeeanim.gif?1601147277');
   background-repeat: no-repeat;
   background-size: 100% auto;
+  
 }
 /* 
 .chat-container {

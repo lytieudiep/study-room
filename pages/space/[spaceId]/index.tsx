@@ -1,11 +1,12 @@
 "use client";
 
-import Image from 'next/image'
 import { useState } from 'react';
 import PomodoroTimer from '../../../components/PomodoroTimer';
 import TodoList from '../../../components/TodoList';
 import Layout from '../../../components/Layout';
 import MusicPlayer from '../../../components/MusicPlayer';
+import { FiVideo } from 'react-icons/fi';
+
 
 
 interface SpaceIdParams {
@@ -32,64 +33,25 @@ function Chatbox() {
                     {/* Sidebar content here */}
 
                     <div className="chat chat-start">
-                        <div className="chat-image avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="/components/images/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
-                        </div>
-                        <div className="chat-header">
-                            Obi-Wan Kenobi
-                            <time className="text-xs opacity-50 pl-2">12:45</time>
-                        </div>
-                        <div className="chat-bubble">You were the Chosen One!</div>
-                        <div className="chat-footer opacity-50">
-                            Delivered
-                        </div>
+                        <div className="chat-bubble chat-bubble-primary">What kind of nonsense is this</div>
                     </div>
                     <div className="chat chat-start">
-                        <div className="chat-image avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
-                        </div>
-                        <div className="chat-header">
-                            Obi-Wan Kenobi
-                            <time className="text-xs opacity-50 pl-2">12:45</time>
-                        </div>
-                        <div className="chat-bubble">You were the Chosen One!</div>
-                        <div className="chat-footer opacity-50">
-                            Delivered
-                        </div>
+                        <div className="chat-bubble chat-bubble-secondary">Put me on the Council and not make me a Master!??</div>
                     </div>
                     <div className="chat chat-start">
-                        <div className="chat-image avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
-                        </div>
-                        <div className="chat-header">
-                            Obi-Wan Kenobi
-                            <time className="text-xs opacity-50 pl-2">12:45</time>
-                        </div>
-                        <div className="chat-bubble">You were the Chosen One!</div>
-                        <div className="chat-footer opacity-50">
-                            Delivered
-                        </div>
+                        <div className="chat-bubble chat-bubble-accent">That's never been done in the history of the Jedi. It's insulting!</div>
                     </div>
                     <div className="chat chat-end">
-                        <div className="chat-image avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
-                        </div>
-                        <div className="chat-header">
-                            Anakin
-                            <time className="text-xs opacity-50 pl-2">12:46</time>
-                        </div>
-                        <div className="chat-bubble">I hate you!</div>
-                        <div className="chat-footer opacity-50">
-                            Seen at 12:46
-                        </div>
+                        <div className="chat-bubble chat-bubble-info">Calm down, Anakin.</div>
+                    </div>
+                    <div className="chat chat-end">
+                        <div className="chat-bubble chat-bubble-success">You have been given a great honor.</div>
+                    </div>
+                    <div className="chat chat-end">
+                        <div className="chat-bubble chat-bubble-warning">To be on the Council at your age.</div>
+                    </div>
+                    <div className="chat chat-end">
+                        <div className="chat-bubble chat-bubble-error">It's never happened before.</div>
                     </div>
                 </ul>
                 <textarea className="textarea textarea-bordered w-full" placeholder="Bio"></textarea>
@@ -98,21 +60,16 @@ function Chatbox() {
         </div>
     } else {
         return <div className="relative">
-            <div className="fixed bottom-5 right-5 flex justify-end items-end w-full h-full">
+            <div className="fixed bottom-5 right-5 flex justify-end items-end">
                 <button
                     className=" bg-white px-4 py-2 rounded-3xl"
-                    onClick={() => { setOpen(true) }}
-                >Open Chat</button>
-
+                    onClick={() => { setOpen(true) }}>Open Chat</button>
             </div>
 
         </div>
 
     }
-
-
 }
-
 
 export default function SpaceId({ params }: { params: SpaceIdParams }) {
 
@@ -126,17 +83,20 @@ export default function SpaceId({ params }: { params: SpaceIdParams }) {
         <>
             <div className="container min-h-full min-w-full bg-indigo-600">
                 {/* Navbar */}
-                <div className="navbar bg-base-300">
+                <div className="navbar bg-base-100">
                     <div className="flex-1">
                         <a className="btn btn-ghost normal-case text-xl">FocusZone</a>
                     </div>
 
                     {/* centered items in nav bar */}
                     <nav className="navbar flex items-center justify-center">
-                        <ul className="menu menu-horizontal bg-base-200 rounded-box mt-6">
+                        <ul className="menu menu-horizontal bg-base-200 rounded-box">
+                            <li>
+                                <h4 className="text-5xs primary">Zoe's room</h4>
+                            </li>
                             <li>
                                 <a className="tooltip" data-tip="Home">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                                    <button className="btn btn-secondary btn-xs">Invite friend</button>
                                 </a>
                             </li>
                             <li>
@@ -146,7 +106,7 @@ export default function SpaceId({ params }: { params: SpaceIdParams }) {
                             </li>
                             <li>
                                 <a className="tooltip" data-tip="Stats">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                                    <FiVideo></FiVideo>
                                 </a>
                             </li>
                         </ul>
