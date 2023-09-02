@@ -15,8 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         );
 
-        if (user) {
-            const passwordMatches = await bcrypt.compare(password, user.password);
+        if (user && user?.password) {
+            const passwordMatches = await bcrypt.compare(password, user.password.toString());
             if (passwordMatches) {
                 res.status(200).json({
                     message: `Welcome, ${email}`

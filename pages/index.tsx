@@ -23,7 +23,7 @@ export default function Home() {
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
               <li><a>Item 1</a></li>
               <li>
-                <a>Parent</a>
+                <a>Home</a>
                 <ul className="p-2">
                   <li><a>Submenu 1</a></li>
                   <li><a>Submenu 2</a></li>
@@ -36,17 +36,17 @@ export default function Home() {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 text-base-100">
-            <li><a>Item 1</a></li>
+            <li><a>Home</a></li>
             <li tabIndex={0}>
               <details className="text-base-100">
-                <summary>Parent</summary>
+                <summary>Our service</summary>
                 <ul className="p-2">
                   <li><a>Submenu 1</a></li>
                   <li><a>Submenu 2</a></li>
                 </ul>
               </details>
             </li>
-            <li><a>Item 3</a></li>
+            <li><a>Contact </a></li>
           </ul>
         </div>
         <div className="navbar-end">
