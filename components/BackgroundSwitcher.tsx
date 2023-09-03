@@ -16,12 +16,11 @@ const BackgroundSwitcher = ({ onImageChange, imageLibrary }: BackgroundSwitcherP
 
   return (
 
-    <div className=" items-center p-4">
+    <div className="items-center p-4">
       <div className="mb-4"
         style={{
           flex: 1, // Occupy the remaining space
         }}>
-        <label htmlFor="image-carousel" className="collapse-title text-xl font-medium">Choose a background image:</label>
         <Carousel
           id="image-carousel"
           showArrows={true}

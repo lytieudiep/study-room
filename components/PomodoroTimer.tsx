@@ -1,29 +1,50 @@
-"use client"; 
+"use client";
 
-import { useState, useEffect } from 'react';
+// src/components/Pomodoro.tsx
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlay,
+  faStop,
+  faRedo,
+  faCog,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
-const PomodoroTimer = () => {
-  const [timeRemaining, setTimeRemaining] = useState(25 * 60); // 25 minutes in seconds
-  const [isRunning, setIsRunning] = useState(false);
+
+function classNames(...classes: string[]) {
+  return classes.join(" ")
+}
+
+const Pomodoro: React.FC = () => {
+  const [focusTime, setFocusTime] = useState<number>(25);
+  const [breakTime, setBreakTime] = useState<number>(5);
+  const [minutes, setMinutes] = useState<number>(focusTime);
+  const [seconds, setSeconds] = useState<number>(0);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout | undefined = undefined;
+    setMinutes(focusTime);
+    setSeconds(0);
+  }, [focusTime, breakTime]);
 
-    if (isRunning && timeRemaining > 0) {
-      intervalId = setInterval(() => {
-        setTimeRemaining((prevTime) => prevTime - 1);
+  useEffect(() => {
+    if (isRunning) {
+      const timerInterval = setInterval(() => {
+        if (minutes === 0 && seconds === 0) {
+          clearInterval(timerInterval);
+          setIsRunning(false);
+        } else if (seconds === 0) {
+          setMinutes((prevMinutes) => prevMinutes - 1);
+          setSeconds(59);
+        } else {
+          setSeconds((prevSeconds) => prevSeconds - 1);
+        }
       }, 1000);
+
+      return () => clearInterval(timerInterval);
     }
-
-    if (!isRunning && intervalId) {
-      clearInterval(intervalId);
-    }
-
-    return () => clearInterval(intervalId);
-  }, [isRunning, timeRemaining]);
-
-  const minutes = Math.floor(timeRemaining / 60);
-  const seconds = timeRemaining % 60;
+  }, [isRunning, minutes, seconds]);
 
   const startTimer = () => {
     setIsRunning(true);
@@ -34,34 +55,72 @@ const PomodoroTimer = () => {
   };
 
   const resetTimer = () => {
-    setTimeRemaining(25 * 60);
     setIsRunning(false);
+    setMinutes(focusTime);
+    setSeconds(0);
   };
 
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+
+
   return (
-    <div className="p-4 bg-white rounded shadow">
-      <div className="text-center">
-        <div className="text-4xl font-bold mb-4">
-          {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}
+    <div className="flex flex-col items-center">
+      <div className="">
+        <h1 className="text-xl font-medium">Pomodoro Timer</h1>
+      </div>
+      <div className="flex items-center mt-4"> {/* Wrap the timer and buttons in a flex container */}
+        <div className="text-6xl font-bold">
+          {String(minutes).padStart(2, "0")}:
+          {String(seconds).padStart(2, "0")}
         </div>
-        <div className="flex justify-center gap-4">
+        <div className="flex ml-4"> {/* Wrap the buttons in a flex container */}
           <button
-            className="btn btn-primary"
+            className="btn btn-sm btn-primary"
             onClick={startTimer}
-            disabled={isRunning || timeRemaining === 0}
+            disabled={isRunning}
           >
-            Start
+            <FontAwesomeIcon icon={faPlay} />
           </button>
-          <button className="btn btn-secondary" onClick={stopTimer} disabled={!isRunning}>
-            Stop
+          <button className="btn btn-sm btn-warning mx-4" onClick={stopTimer}>
+            <FontAwesomeIcon icon={faStop} />
           </button>
-          <button className="btn btn-secondary" onClick={resetTimer}>
-            Reset
+          <button className="btn btn-sm btn-danger" onClick={resetTimer}>
+            <FontAwesomeIcon icon={faRedo} />
           </button>
+        </div>
+      </div>
+
+      <div className="collapse collapse-arrow">
+        <input type="checkbox" />
+        <div className="collapse-title text-xs font-bold">
+          Pomodoro Settings
+        </div>
+        <div className="collapse-content">
+          <div className="space-y-2">
+            <div className="flex">
+              <label className="text-md">Focus Time (minutes):</label>
+              <input
+                type="number"
+                value={focusTime}
+                onChange={(e) => setFocusTime(parseInt(e.target.value))}
+                className="input input-primary ml-2 w-1/2"
+              />
+            </div>
+            <div className="flex">
+              <label className="text-md">Break Time (minutes):</label>
+              <input
+                type="number"
+                value={breakTime}
+                onChange={(e) => setBreakTime(parseInt(e.target.value))}
+                className="input input-primary ml-2 w-1/2"
+              />
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   );
 };
 
-export default PomodoroTimer;
+export default Pomodoro;

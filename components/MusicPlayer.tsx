@@ -1,44 +1,38 @@
 
 "use client"; 
-
-import { useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import YouTube from 'react-youtube';
 
-interface MusicPlayerProps {
-  videoId: string;
+interface YouTubePlayerProps {
+  videoUrl: string;
 }
 
-const MusicPlayer: React.FC<MusicPlayerProps> = ({ videoId }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const onPlayerReady = (event: any) => {
-    event.target.pauseVideo(); // Pause the video initially
+const MusicPlayer: React.FC<YouTubePlayerProps> = ({ videoUrl }) => {
+  const opts = {
+    height: '190',
+    width: '340',
+    playerVars: {
+      autoplay: 1,
+    },
   };
 
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
+  const onReady = (event: { target: any }) => {
+    // access to player in all event handlers via event.target
+    event.target.playVideo();
   };
 
   return (
-    <div className="relative">
-      <YouTube
-        videoId={videoId}
-        opts={{
-          playerVars: {
-            autoplay: isPlaying ? 1 : 0,
-          },
-        }}
-        onReady={onPlayerReady}
-        className="w-full h-0"
-      />
-      <button
-        className="btn absolute bottom-4 right-4"
-        onClick={togglePlay}
-      >
-        {isPlaying ? 'Pause' : 'Play'}
-      </button>
+    <div className="w-full">
+      <YouTube videoId={videoUrl} opts={opts} onReady={onReady} />
     </div>
   );
 };
 
 export default MusicPlayer;
+
+
+
+
+
+
+

@@ -10,6 +10,9 @@
     "chat": "node server.js"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@prisma/client": "^4.15.0",
     "@types/react": "18.2.11",
     "@types/react-dom": "18.2.4",
@@ -24,6 +27,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-modal": "^3.16.1",
     "react-redux": "^8.1.2",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.12.1",

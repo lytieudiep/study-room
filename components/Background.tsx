@@ -9,7 +9,7 @@ interface BackgroundProps {
 const Background = ({ imageUrl, children }: BackgroundProps) => {
   return (
     <div
-      className="flex items-center justify-center min-h-full- min-w-full"
+      className="min-h-screen bg-cover bg-center"
       style={{
         backgroundImage: `url(${imageUrl})`,
         backgroundSize: 'cover',
