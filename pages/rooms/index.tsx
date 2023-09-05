@@ -37,12 +37,6 @@ export const getServerSideProps: GetServerSideProps<MyRoomProps> = async (contex
                     })
                 }
             }
-        } else {
-            return {
-                props: {
-                    rooms: []
-                }
-            }
         }
     }
 
@@ -67,7 +61,7 @@ const MyRooms: React.FC<MyRoomProps> = ({ rooms }) => {
                 </Link>
             </div>
 
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center grid grid-cols-1 space-y-3">
                 {rooms?.map((room) => {
                     return <div key={room.id}>
                         <RoomCard room={room} />
