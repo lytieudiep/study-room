@@ -46,13 +46,13 @@ export default function RoomPage({ params }: { params: RoomParams }) {
 
     return (
         <>
-            <div className="navbar bg-base-100">
-                <div className="flex-1">
+            <div className="">
+                {/* <div className="flex-1">
                     <a className="btn btn-ghost normal-case text-xl">FocusZone</a>
-                </div>
+                </div> */}
 
                 {/* centered items in nav bar */}
-                <nav className="navbar flex items-center justify-center">
+                <div className="navbar bg-transparent flex items-center justify-center" >
                     <ul className="menu menu-horizontal bg-base-200 rounded-box">
                         <li>
                             <h4 className="text-5xs primary">Zoe's room</h4>
@@ -73,9 +73,9 @@ export default function RoomPage({ params }: { params: RoomParams }) {
                             </a>
                         </li>
                     </ul>
-                </nav>
+                </div>
 
-                <div className="flex-none">
+                <div className="absolute top-0 right-0 p-2">
                     {(session.status == "authenticated") ?
                         <SignOutButton />
                         : <SignInButton />
@@ -113,13 +113,13 @@ export default function RoomPage({ params }: { params: RoomParams }) {
                         <br></br>
                         {/* Todo list */}
                         <div className="collapse bg-base-200 shadow-xl">
-                            <h1 className="collapse-title text-xl font-medium">Todo List</h1>
+                            <h1 className="collapse-title text-md font-medium">Todo List</h1>
                             <TodoList />
                         </div>
                         <br></br>
                         {/* Youtube music */}
                         <div className="collapse bg-base-200 shadow-xl">
-                            <h1 className="collapse-title text-xl font-medium">Music Player</h1>
+                            <h1 className="collapse-title text-md font-medium">Music Player</h1>
                             <div className="">
                                 <div className="md:w-2/3 p-2">
                                     <MusicPlayer videoUrl={currentSong.url} />

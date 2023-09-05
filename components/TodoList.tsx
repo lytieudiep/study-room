@@ -44,7 +44,7 @@ const ToDoList = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-2">
       <div className="flex">
         <input
           type="text"

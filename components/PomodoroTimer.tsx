@@ -64,9 +64,9 @@ const Pomodoro: React.FC = () => {
 
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex-col items-center">
       <div className="">
-        <h1 className="text-xl font-medium">Pomodoro Timer</h1>
+        <h1 className="text-md font-medium">Pomodoro Timer</h1>
       </div>
       <div className="flex items-center mt-4"> {/* Wrap the timer and buttons in a flex container */}
         <div className="text-6xl font-bold">
