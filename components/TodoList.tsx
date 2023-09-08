@@ -25,8 +25,10 @@ const ToDoList = ({ roomId }: ToDoListProps) => {
         method: "GET"
       }
     );
-    let respJson: { data: Task[] } = await resp.json();
-    setTasks(respJson.data);
+    if (resp.status == 200) {
+      let respJson: { data: Task[] } = await resp.json();
+      setTasks(respJson.data);
+    }
   }
 
   const handleAddTask = async (taskDescription: string) => {
