@@ -12,13 +12,13 @@ import ChatComponent from '../../../components/ChatComponent';
 import Background from '../../../components/Background';
 import BackgroundSwitcher from '../../../components/BackgroundSwitcher';
 import { songs } from '../../../components/song';
+import { useRouter } from 'next/router';
 
 
-interface RoomParams {
-    spaceId: string
-}
+export default function RoomPage() {
 
-export default function RoomPage({ params }: { params: RoomParams }) {
+    const router = useRouter();
+    const roomId = router.query.roomId?.toString();
 
     const imageLibrary = [
         'https://i.pinimg.com/originals/4a/65/ab/4a65abeead3a8d113bccfee5d5d239f4.gif',
@@ -43,6 +43,10 @@ export default function RoomPage({ params }: { params: RoomParams }) {
         );
     }
     const session = useSession();
+
+    if(!roomId) {
+        return <>Loading...</>
+    }
 
     return (
         <>
@@ -114,7 +118,7 @@ export default function RoomPage({ params }: { params: RoomParams }) {
                         {/* Todo list */}
                         <div className="collapse bg-base-200 shadow-xl">
                             <h1 className="collapse-title text-md font-medium">Todo List</h1>
-                            <TodoList />
+                            <TodoList roomId={roomId} />
                         </div>
                         <br></br>
                         {/* Youtube music */}
