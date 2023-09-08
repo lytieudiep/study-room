@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import io, { Socket } from 'socket.io-client';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { ChatMessage } from '@/entities/chat';
 const CHAT_SERVER = "http://localhost:3001";
 
 function ChatComponent() {
     const router = useRouter();
     const roomId = router.query.roomId;
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState('');
     const [socket, setSocket] = useState<null | Socket>(null);
+    const [email, setEmail] = useState<string | null>(null);
 
     const handleGetChatIdentity = async () => {
         let resp = await fetch(
@@ -22,6 +24,8 @@ function ChatComponent() {
         );
         let respJson = await resp.json();
         let identityToken = respJson["identityToken"];
+        let email = respJson["email"];
+        setEmail(email);
         if (!identityToken) {
             throw new Error("failed to get chat identity token");
         }
@@ -36,6 +40,9 @@ function ChatComponent() {
             }
         }
         );
+        _socket.on('chat message', (message) => {
+            setMessages((previousMessages) => [...previousMessages, message]);
+        });
         setSocket(_socket);
     }
 
@@ -54,7 +61,10 @@ function ChatComponent() {
 
     const handleSendMessage = () => {
         if (input.trim() !== '' && socket) {
-            socket.emit('chat message', input);
+            socket.emit('chat message', {
+                message: input,
+                sentAt: new Date()
+            });
             setInput('');
         }
     };
@@ -79,17 +89,21 @@ function ChatComponent() {
                         </Head>
                         <div className="p-4">
                             <div className="space-y-4">
-                                {messages.map((message, index) => (
-                                    <div
-                                        key={index}
-                                        className={`flex ${index % 2 === 0 ? 'justify-end' : 'justify-start'
-                                            }`}
-                                    >
+                                {messages.map((message) => (
+                                    <div className="space-y-2" key={`${message.sentAt}-${message.email}`}>
+                                        <p className={`flex text-blue-300 text-xs ${message.email === email ? 'justify-end' : 'justify-start'
+                                            }`}>{message.email}</p>
                                         <div
-                                            className={`${index % 2 === 0 ? 'bg-blue-500 text-white' : 'bg-gray-200'
-                                                } p-2 rounded-md max-w-xs`}
+
+                                            className={`flex ${message.email === email ? 'justify-end' : 'justify-start'
+                                                }`}
                                         >
-                                            {message}
+                                            <div
+                                                className={`${message.email === email ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                                                    } p-2 rounded-md max-w-xs`}
+                                            >
+                                                {message.message}
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
