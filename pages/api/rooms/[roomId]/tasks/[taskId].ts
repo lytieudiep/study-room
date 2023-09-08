@@ -67,6 +67,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return
         }
 
+        // TODO: check if participant instead
         const currentUser = await prismaClient.user.findUnique({
             where: {
                 email: session.user?.email?.toString()

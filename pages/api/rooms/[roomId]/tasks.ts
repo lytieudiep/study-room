@@ -62,6 +62,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return
             }
 
+            // TODO: check if user is participant
+
             const taskDescription = req.body.taskDescription;
 
             if (!taskDescription) {
