@@ -21,9 +21,13 @@ io.on("connection", (socket) => {
     let identity = jwt.verify(identityToken, CHAT_SECRET);
     let email = identity.email;
     let room = identity.roomId;
+    socket.join(room);
 
     socket.on('chat message', (message) => {
-      console.log("timestamp:", new Date().toLocaleString(), "room:", room, "email:", email, "message:", message);
+      message['email'] = email;
+      console.log(message)
+  
+      io.to(room).emit('chat message', message)
     });
   } else {
     socket.disconnect();
