@@ -13,6 +13,7 @@ import Background from '../../../components/Background';
 import BackgroundSwitcher from '../../../components/BackgroundSwitcher';
 import { songs } from '../../../components/song';
 import { useRouter } from 'next/router';
+import VideoRoom from '@/components/VideoRoom';
 
 
 export default function RoomPage() {
@@ -91,6 +92,9 @@ export default function RoomPage() {
                 <div className="drawer-content">
                     <Background imageUrl={selectedImageUrl}>
                         <div className="container min-h-full">
+                            <div className="bg-white justify-center p-4">
+                                {/* <VideoRoom/> */}
+                            </div>
 
 
                             <div className="absolute z-0 inset-x-0 bottom-20 flex justify-center" style={{ background: "transparent" }}>
