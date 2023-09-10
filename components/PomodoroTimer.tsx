@@ -1,7 +1,7 @@
 "use client";
 
 // src/components/Pomodoro.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -22,6 +22,9 @@ const Pomodoro: React.FC = () => {
   const [minutes, setMinutes] = useState<number>(focusTime);
   const [seconds, setSeconds] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const startSoundRef = useRef<HTMLAudioElement>(null);
+  <audio ref={startSoundRef} src="/start-sound.mp3" />
+
 
   useEffect(() => {
     setMinutes(focusTime);
@@ -47,6 +50,7 @@ const Pomodoro: React.FC = () => {
   }, [isRunning, minutes, seconds]);
 
   const startTimer = () => {
+    startSoundRef.current?.play();
     setIsRunning(true);
   };
 
@@ -66,7 +70,7 @@ const Pomodoro: React.FC = () => {
   return (
     <div className="flex-col items-center">
       <div className="">
-        <h1 className="text-md font-medium">Pomodoro Timer</h1>
+        <h1 className="text-md font-medium">Timer</h1>
       </div>
       <div className="flex items-center mt-4"> {/* Wrap the timer and buttons in a flex container */}
         <div className="text-6xl font-bold">

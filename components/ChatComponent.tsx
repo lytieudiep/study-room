@@ -108,7 +108,7 @@ function ChatComponent() {
                                     </div>
                                 ))}
                             </div>
-                            <div className="mt-4 space-x-2">
+                            <div className="flex mt-4 space-x-2">
                                 <input
                                     type="text"
                                     value={input}
@@ -129,7 +129,7 @@ function ChatComponent() {
         return <div className="relative">
             <div className="fixed bottom-5 right-5 flex justify-end items-end">
                 <button
-                    className=" bg-white px-4 py-2 rounded-3xl"
+                    className=" btn btn-primary px-4 py-2 rounded-3xl"
                     onClick={() => { setOpen(true) }}>Open Chat</button>
             </div>
 
