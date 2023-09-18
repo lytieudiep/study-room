@@ -71,9 +71,9 @@ function ChatComponent() {
     const [open, setOpen] = useState(false);
     if (open) {
         return <div className="fixed bottom-0 right-0 justify-end items-end h-auto h-max-96">
-            <div className="bg-base-200 px-4 py-4 rounded-md space-y-2">
+            <div className="bg-base-100 px-4 py-4 rounded-md space-y-2">
                 <span className="flex justify-between">
-                    <div className="text-xl font-medium">Chat room</div>
+                    <div className="text-xl font-medium text-neutral">Chat room</div>
 
                     <button
                         className="btn btn-circle btn-ghost btn-xs ml-auto"
@@ -82,12 +82,13 @@ function ChatComponent() {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </span>
-                <ul className="w-80 bg-base-200 h-96 text-base-content overflow-y-scroll">
+                <ul className="w-80 bg-base-100 h-96 text-base-content overflow-y-scroll">
                     <div>
                         <Head>
                             <title>Study room</title>
                         </Head>
                         <div className="p-4">
+
                             <div className="space-y-4">
                                 {messages.map((message) => (
                                     <div className="space-y-2" key={`${message.sentAt}-${message.email}`}>
@@ -104,25 +105,29 @@ function ChatComponent() {
                                             >
                                                 {message.message}
                                             </div>
-                                            
+
                                         </div>
-                                        
+
                                     </div>
                                 ))}
                             </div>
-                            <div className="flex mt-4 space-x-2">
-                                <input
-                                    type="text"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)}
-                                    className="border p-2 rounded-md flex-grow"
-                                />
+                            <div className=" mt-2 space-x-2 just">
+                                <div className="flex">
+                                    <input
+                                        type="text"
+                                        value={input}
+                                        placeholder="Say something..."
+                                        onChange={(e) => setInput(e.target.value)}
+                                        className="border p-2 rounded-md flex-grow"
+                                    />
+                                    <button className="btn btn-primary" onClick={handleSendMessage}>Send</button>
+                                </div>
+
+
+                                </div>
 
                             </div>
-
-                            <button className="btn btn-primary" onClick={handleSendMessage}>Send</button>
                         </div>
-                    </div>
                 </ul>
 
             </div>

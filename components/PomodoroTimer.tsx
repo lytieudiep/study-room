@@ -85,7 +85,7 @@ const Pomodoro: React.FC = () => {
           >
             <FontAwesomeIcon icon={faPlay} />
           </button>
-          <button className="btn btn-sm btn-warning mx-4 " aria-label="Stop" onClick={stopTimer}>
+          <button className="btn btn-sm btn-error mx-4 " aria-label="Stop" onClick={stopTimer}>
             <FontAwesomeIcon icon={faStop} />
           </button>
           <button className="btn btn-sm btn-danger" aria-label="Reset"onClick={resetTimer}>

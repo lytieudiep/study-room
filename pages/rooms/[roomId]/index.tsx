@@ -118,16 +118,14 @@ export default function RoomPage({ inviteCode} : RoomPageProps) {
                 <title>Main study room</title>
                 <meta name="Study room" property="og:title" content="Study room" key="title" />
             </Head>
-            <div className=" flex ">
-                <div className="flex-1">
-                    <a className="btn btn-ghost normal-case text-xl">FocusZone</a>
-                </div>
+            <div className="  ">
+                
 
                 {/* centered items in nav bar */}
-                <div className="navbar flex items-center justify-center" >
-                    <ul className="menu menu-horizontal menu-xs bg-base-200 rounded-box">
+                <div className="navbar bg-base-100 flex items-center justify-center" >
+                    <ul className="menu menu-horizontal menu-xs bg-base-content rounded-box">
                         <li>
-                            <h4 className="text-5xs primary">Zoe's room</h4>
+                            <h4 className="text-5xs text-base-100">Zoe's room</h4>
                         </li>
                         <li>
                             <a className="tooltip" data-tip="Home">
@@ -138,7 +136,7 @@ export default function RoomPage({ inviteCode} : RoomPageProps) {
                             </a>
                         </li>
                         <li>
-                            <a className="tooltip" data-tip="Details">
+                            <a className="tooltip primary" data-tip="Details">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </a>
                         </li>
@@ -212,7 +210,7 @@ export default function RoomPage({ inviteCode} : RoomPageProps) {
                                     {/* <h2 className="text-lg font-semibold mb-4">{currentSong.title}</h2> */}
 
                                     <button
-                                        className="btn btn-primary p-2 text-white rounded-md"
+                                        className="btn btn-primary p-2 text-primary-content"
                                         onClick={playNextSong}
                                     >
                                         Play Next Song
