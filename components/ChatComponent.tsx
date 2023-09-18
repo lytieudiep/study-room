@@ -91,7 +91,7 @@ function ChatComponent() {
                             <div className="space-y-4">
                                 {messages.map((message) => (
                                     <div className="space-y-2" key={`${message.sentAt}-${message.email}`}>
-                                        <p className={`flex text-blue-300 text-xs ${message.email === email ? 'justify-end' : 'justify-start'
+                                        <p className={`flex text-blue-300 text-xs chat-header ${message.email === email ? 'justify-end' : 'justify-start'
                                             }`}>{message.email}</p>
                                         <div
 
@@ -99,12 +99,14 @@ function ChatComponent() {
                                                 }`}
                                         >
                                             <div
-                                                className={`${message.email === email ? 'bg-blue-500 text-white' : 'bg-gray-200'
-                                                    } p-2 rounded-md max-w-xs`}
+                                                className={`${message.email === email ? '' : ''
+                                                    } chat-bubble`}
                                             >
                                                 {message.message}
                                             </div>
+                                            
                                         </div>
+                                        
                                     </div>
                                 ))}
                             </div>

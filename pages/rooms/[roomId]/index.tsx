@@ -14,19 +14,81 @@ import BackgroundSwitcher from '../../../components/BackgroundSwitcher';
 import { songs } from '../../../components/song';
 import { useRouter } from 'next/router';
 import VideoRoom from '@/components/VideoRoom';
+import Head from 'next/head';
+import { GetServerSideProps } from "next";
+import StudyRoomPrismaClient from '@/lib/db';
 
 
-export default function RoomPage() {
+const InviteCodeModal = ({inviteCode} : {inviteCode: string | null }) => {
+    return (
+        <dialog id="invite_code_modal" className="modal">
+            <div className="modal-box">
+                <h3 className="font-bold text-lg">Invite a friend!</h3>
+                <p className="py-4">You can invite a friend by sharing this code and linking them to this page</p>
+                <p className="text-center">{inviteCode}</p>
+
+                <div className="modal-action">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+    )
+}
+
+interface RoomPageProps {
+    roomId: number | null,
+    inviteCode: string | null
+}
+
+export const getServerSideProps: GetServerSideProps<RoomPageProps> = async (context) => {
+    const { roomId } = context.query;
+    
+    var roomIdInt;
+    try {
+        roomIdInt = parseInt(roomId as string);
+    } catch (error) {
+        console.log(error);
+        return {
+            props: {
+                roomId: null,
+                inviteCode: null
+            }
+        }
+    }
+
+    const room = await StudyRoomPrismaClient.room.findUnique({
+        where: {
+            id: roomIdInt
+        }
+    });
+
+    const inviteCode = room?.inviteCode?.toString();
+
+
+    return {
+        props: {
+            roomId: roomIdInt,
+            inviteCode: inviteCode || null
+        }
+    }
+}
+
+
+export default function RoomPage({ inviteCode} : RoomPageProps) {
 
     const router = useRouter();
     const roomId = router.query.roomId?.toString();
 
     const imageLibrary = [
+
         'https://i.pinimg.com/originals/4a/65/ab/4a65abeead3a8d113bccfee5d5d239f4.gif',
         'https://cdnb.artstation.com/p/assets/images/images/029/320/295/original/bogdan-mb0sco-coffeeanim.gif?1601147277',
         'https://cdnb.artstation.com/p/assets/images/images/025/079/567/original/ngan-pham-lil-ants-anim-test-v06.gif?1584542703',
-
-        // Add more image URLs to the library
+        'https://steamuserimages-a.akamaihd.net/ugc/831329771678673548/49C66203D4484F804076D9E21376CE55F8BC2DFE/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false',
+        'https://media4.giphy.com/media/IuVFGSQZTd6TK/giphy.gif?cid=ecf05e4796x9wxpr4muzt8czviaj5g2ubedb22dj1ofdand8&ep=v1_gifs_search&rid=giphy.gif&ct=g',
     ];
 
     const [selectedImageUrl, setSelectedImageUrl] = useState(imageLibrary[0]); // Set a default image URL
@@ -35,6 +97,7 @@ export default function RoomPage() {
         setSelectedImageUrl(imageUrl);
     }
 
+    const [showVideo, setShowVideo] = useState(false);
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
     const currentSong = songs[currentSongIndex];
 
@@ -45,26 +108,33 @@ export default function RoomPage() {
     }
     const session = useSession();
 
-    if(!roomId) {
+    if (!roomId) {
         return <>Loading...</>
     }
 
     return (
         <>
-            <div className="">
-                {/* <div className="flex-1">
+            <Head>
+                <title>Main study room</title>
+                <meta name="Study room" property="og:title" content="Study room" key="title" />
+            </Head>
+            <div className=" flex ">
+                <div className="flex-1">
                     <a className="btn btn-ghost normal-case text-xl">FocusZone</a>
-                </div> */}
+                </div>
 
                 {/* centered items in nav bar */}
-                <div className="navbar bg-transparent flex items-center justify-center" >
-                    <ul className="menu menu-horizontal bg-base-200 rounded-box">
+                <div className="navbar flex items-center justify-center" >
+                    <ul className="menu menu-horizontal menu-xs bg-base-200 rounded-box">
                         <li>
                             <h4 className="text-5xs primary">Zoe's room</h4>
                         </li>
                         <li>
                             <a className="tooltip" data-tip="Home">
-                                <button className="btn btn-secondary btn-xs">Invite friend</button>
+                                <button onClick={() => {
+                                    // @ts-ignore
+                                    document.getElementById('invite_code_modal')?.showModal();
+                                }} className="btn btn-secondary btn-xs">Invite friend</button>
                             </a>
                         </li>
                         <li>
@@ -73,14 +143,16 @@ export default function RoomPage() {
                             </a>
                         </li>
                         <li>
-                            <a className="tooltip" data-tip="Stats">
+                            <a onClick={() => {
+                                setShowVideo(!showVideo);
+                            }} className="tooltip" data-tip="Open video">
                                 <FiVideo></FiVideo>
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <div className="absolute top-0 right-0 p-2">
+                <div className="btn-xs absolute top-0 right-0 p-2">
                     {(session.status == "authenticated") ?
                         <SignOutButton />
                         : <SignInButton />
@@ -90,27 +162,30 @@ export default function RoomPage() {
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
-                    <Background imageUrl={selectedImageUrl}>
-                        <div className="container min-h-full">
-                            <div className="bg-white justify-center p-4">
-                                {/* <VideoRoom/> */}
+                    <div className="drawer-content">
+                        {/* <label htmlFor="my-drawer" className="btn btn-primary drawer-button">Open drawer</label> */}
+
+                        <Background imageUrl={selectedImageUrl}>
+                            <div className="container ">
+                                <div >
+                                    {(showVideo) ? <VideoRoom /> : <></>}
+                                </div>
+
+
+                                <div className="absolute z-0 inset-x-0 bottom-20 flex justify-center" style={{ background: "transparent" }}>
+                                    <BackgroundSwitcher
+                                        onImageChange={handleImageChange}
+                                        imageLibrary={imageLibrary}
+                                    />
+                                </div>
+                                <ChatComponent />
                             </div>
 
-
-                            <div className="absolute z-0 inset-x-0 bottom-20 flex justify-center" style={{ background: "transparent" }}>
-                                <BackgroundSwitcher
-                                    onImageChange={handleImageChange}
-                                    imageLibrary={imageLibrary}
-                                />
-                            </div>
-                            <ChatComponent />
-                        </div>
-
-                    </Background>
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-
+                        </Background>
+                        <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                    </div>
                 </div>
-                <div className="drawer-side z-10 min-h-screen">
+                <div className="drawer-side w-16">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-96 max-w-96 bg-neutral text-base-content z-10 mb-20 overflow-y-scroll">
                         {/* Sidebar content here */}
@@ -151,6 +226,7 @@ export default function RoomPage() {
                     </ul>
                 </div>
             </div>
+            <InviteCodeModal inviteCode={inviteCode} />
         </>
     )
 }

@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Image from 'next/image'
+
 
 interface BackgroundSwitcherProps {
   onImageChange: (imageUrl: string) => void;
@@ -31,7 +33,7 @@ const BackgroundSwitcher = ({ onImageChange, imageLibrary }: BackgroundSwitcherP
             <div key={index}>
               <img style={{
                 height: "50px",
-                width: "80px"
+                width: "80px",
               }} src={imageUrl} alt={`Image ${index}`} />
             </div>
           ))}

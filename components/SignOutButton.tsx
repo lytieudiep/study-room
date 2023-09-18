@@ -9,7 +9,7 @@ const SignOutButton = () => {
 
     } else {
         return <>
-            <button className="btn btn-primary" onClick={() => { signOut() }}>
+            <button className="btn btn-primary btn-md" onClick={() => { signOut() }}>
                 Sign out
             </button>
         </>

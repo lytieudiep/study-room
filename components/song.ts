@@ -12,6 +12,28 @@ export const songs = [
         url: "6H-PLF2CR18",
 
     },
-    // Add more songs as needed
+    {
+      title: 'Song 4',
+      url: 'iwt0qSAynqY',
+    },
+    {
+      title: 'Song 5',
+      url: 'NJuSStkIZBg',  
+    
+    },
+    {
+      title: 'Song 6',
+      url: 'CHFif_y2TyM',
+    },
+    {
+      title: 'Song 7',
+      url: 'ZrKPW5d3idY',
+    },
+    {
+      title: 'Song 8',
+      url: 'mdJU5ogrPMY',
+
+    },
+  
   ];
   

@@ -3,41 +3,39 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-const CreateRoom = () => {
+const JoinPage = () => {
 
-    const [roomName, setRoomName] = useState<undefined | string>();
+    const [joinCode, setJoinCode] = useState<undefined | string>();
     const router = useRouter();
-
+    
     const handleSubmit = async () => {
-        if (roomName) {
+        if (joinCode) {
             let response = await fetch(
-                "/api/newRoom", {
+                "/api/joinRoom", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: roomName
+                    inviteCode: joinCode
                 })
             });
             if (response.status == 200) {
                 let respBody = await response.json();
-                let roomId = respBody["id"];
+                let roomId = respBody["roomId"];
                 router.push(`/rooms/${roomId}`);
             }
         }
     }
 
-
     return <>
         <Head>
-            <title>Create room</title>
-            <meta name="Create room" property="og:title" content="Create a new room" key="title" />
+            <title>Join room</title>
+            <meta name="Join room" property="og:title" content="Join a new room" key="title" />
         </Head>
-
-        <div className="space-y-4 pt-16 container mx-auto ">
-            <h1 className="text-center justify-center font-bold text-3xl">Create a New Room</h1>
+        <div className="space-y-4 pt-16 container mx-auto">
+            <h1 className="text-center justify-center font-bold text-3xl">Join a Room</h1>
             <form className="justify-center space-y-2"
                 onSubmit={async (e) => {
                     e.preventDefault();
@@ -47,18 +45,18 @@ const CreateRoom = () => {
             >
                 <div className="form-control">
                     <label className="label">
-                        <span className="label-text">Give your room a name.</span>
+                        <span className="label-text">Enter join code.</span>
                     </label>
                     <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs"
-                        value={roomName}
+                        value={joinCode}
                         onChange={(e) => {
-                            setRoomName(e.target.value);
+                            setJoinCode(e.target.value);
                         }}
 
                     />
                 </div>
                 <span className="flex space-x-3">
-                    <button type="submit" className="btn btn-primary">Create</button>
+                    <button type="submit" className="btn btn-primary">Join</button>
                     <Link href="/rooms"><button className="btn btn-ghost">Cancel</button></Link>
                 </span>
             </form>
@@ -67,4 +65,4 @@ const CreateRoom = () => {
     </>
 }
 
-export default CreateRoom;
+export default JoinPage;

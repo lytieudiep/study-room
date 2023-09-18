@@ -12,7 +12,7 @@ const Background = ({ imageUrl, children }: BackgroundProps) => {
       className="min-h-screen bg-cover bg-center"
       style={{
         backgroundImage: `url(${imageUrl})`,
-        backgroundSize: 'cover',
+        backgroundSize: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
         backgroundPosition: 'center',
       }}
     >

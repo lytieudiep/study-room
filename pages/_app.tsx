@@ -5,6 +5,7 @@ import "../stylesheets/styles.css";
 import { SessionProvider } from "next-auth/react";
 
 
+
 interface MyAppProps {
   Component: React.ComponentType;
   pageProps: any;

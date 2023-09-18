@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./auth/[...nextauth]";
 import * as jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
+import { userIsParticipant } from "@/lib/auth";
 
 const CHAT_SECRET = "CHAT_SECRET";
 
@@ -23,6 +24,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         let reqBody = JSON.parse(req.body);
         let roomId = reqBody["roomId"];
+
+        var roomIdInt;
+        try {
+            roomIdInt = parseInt(roomId);
+        } catch (error) {
+            res.status(400).json({ error: "roomId must be an integer" });
+            return;
+        }
+
+
         const prismaClient = new PrismaClient();
 
         const currentUser = await prismaClient.user.findUnique({
@@ -33,6 +44,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             res.status(403).json({ message: "User not found" });
             return
         }
+
+        const isParticipant = await userIsParticipant(roomIdInt, currentUser.id);
+        if (!isParticipant) {
+            res.status(403).json({ message: "Not a participant" });
+            return
+        }
+
         let identityToken = jwt.sign({
             userId: currentUser.id,
             email: email,

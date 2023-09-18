@@ -79,25 +79,25 @@ const Pomodoro: React.FC = () => {
         </div>
         <div className="flex ml-4"> {/* Wrap the buttons in a flex container */}
           <button
-            className="btn btn-sm btn-primary"
+            className="btn btn-sm btn-primary" aria-label="Start"
             onClick={startTimer}
             disabled={isRunning}
           >
             <FontAwesomeIcon icon={faPlay} />
           </button>
-          <button className="btn btn-sm btn-warning mx-4" onClick={stopTimer}>
+          <button className="btn btn-sm btn-warning mx-4 " aria-label="Stop" onClick={stopTimer}>
             <FontAwesomeIcon icon={faStop} />
           </button>
-          <button className="btn btn-sm btn-danger" onClick={resetTimer}>
+          <button className="btn btn-sm btn-danger" aria-label="Reset"onClick={resetTimer}>
             <FontAwesomeIcon icon={faRedo} />
           </button>
         </div>
       </div>
 
       <div className="collapse collapse-arrow">
-        <input type="checkbox" />
+      <input type="checkbox" aria-label="open setting"/>
         <div className="collapse-title text-xs font-bold">
-          Pomodoro Settings
+        Pomodoro Settings
         </div>
         <div className="collapse-content">
           <div className="space-y-2">

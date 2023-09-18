@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { PrismaClient } from "@prisma/client";
+import { nanoid } from "nanoid";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -29,11 +30,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return;
         }
 
+        const inviteCode = nanoid(16);
+
         const newRoom = await prismaClient.room.create({
             data: {
                 name: req.body.name,
                 creationDate: new Date(),
                 userId: user.id,
+                inviteCode,
+            }
+        });
+
+        await prismaClient.participant.create({
+            data: {
+                userId: user.id,
+                roomId: newRoom.id,
+                joinDate: new Date(),
             }
         });
 
