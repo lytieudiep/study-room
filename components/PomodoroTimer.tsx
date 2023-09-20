@@ -96,7 +96,7 @@ const Pomodoro: React.FC = () => {
 
       <div className="collapse collapse-arrow">
       <input type="checkbox" aria-label="open setting"/>
-        <div className="collapse-title text-xs font-bold">
+        <div className="collapse-title text-xs font-bold ">
         Pomodoro Settings
         </div>
         <div className="collapse-content">

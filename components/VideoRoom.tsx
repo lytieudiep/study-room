@@ -8,6 +8,8 @@ import { FiVideo } from 'react-icons/fi';
 import '@livekit/components-styles';
 
 
+
+
 const VideoRoom = () => {
     const router = useRouter();
     const roomId = router.query.roomId?.toString();
@@ -45,7 +47,7 @@ const VideoRoom = () => {
         serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_SERVER_URL}
         // Use the default LiveKit theme for nice styles.
         data-lk-theme="default"
-        style={{ height: '60dvh', width: '60dvh' }}
+        style={{ height: '60dvh', width: '60dvh'}}
     >
         {/* Your custom component with basic video conferencing functionality. */}
         <MyVideoConference />

@@ -35,34 +35,45 @@ const CreateRoom = () => {
             <title>Create room</title>
             <meta name="Create room" property="og:title" content="Create a new room" key="title" />
         </Head>
+        <div className="hero min-h-screen bg-base-200">
+            <div className="hero-content flex-col lg:flex-row-reverse">
 
-        <div className="space-y-4 pt-16 container mx-auto ">
-            <h1 className="text-center justify-center font-bold text-3xl">Create a New Room</h1>
-            <form className="justify-center space-y-2"
-                onSubmit={async (e) => {
-                    e.preventDefault();
-                    await handleSubmit();
-                }}
-
-            >
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Give your room a name.</span>
-                    </label>
-                    <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs"
-                        value={roomName}
-                        onChange={(e) => {
-                            setRoomName(e.target.value);
-                        }}
-
-                    />
+                <div className="text-center lg:text-left">
+                    <h1 className="text-5xl font-bold">Create a New Room</h1>
+                    <p className="py-6">Generate a fresh space, assign a unique name to your room, and embark on your learning adventure.</p>
                 </div>
-                <span className="flex space-x-3">
-                    <button type="submit" className="btn btn-primary">Create</button>
-                    <Link href="/rooms"><button className="btn btn-ghost">Cancel</button></Link>
-                </span>
-            </form>
+                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <div className="card-body">
 
+
+                        <form className="justify-center space-y-2"
+                            onSubmit={async (e) => {
+                                e.preventDefault();
+                                await handleSubmit();
+                            }}
+
+                        >
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Give your room a name.</span>
+                                </label>
+                                <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs"
+                                    value={roomName}
+                                    onChange={(e) => {
+                                        setRoomName(e.target.value);
+                                    }}
+
+                                />
+                            </div>
+                            <span className="flex space-x-3">
+                                <button type="submit" className="btn btn-primary">Create</button>
+                                <Link href="/rooms"><button className="btn btn-ghost">Cancel</button></Link>
+                            </span>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </>
 }

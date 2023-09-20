@@ -18,13 +18,12 @@ const BackgroundSwitcher = ({ onImageChange, imageLibrary }: BackgroundSwitcherP
 
   return (
 
-    <div className="items-center p-4">
-      <div className="mb-4"
+    <div className="items-center ">
+      <div className=""
         style={{
           flex: 1, // Occupy the remaining space
         }}>
         <Carousel
-          id="image-carousel"
           showArrows={true}
           showThumbs={false}
           onChange={(index, _) => handleImageChange(imageLibrary[index])}

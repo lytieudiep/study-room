@@ -163,7 +163,7 @@ const ToDoList = ({ roomId }: ToDoListProps) => {
             }}
           ></div>
         </div>
-        <p className="text-sm mt-2">
+        <p className="text-sm mt-2 p-2">
           {tasks.filter((task) => task.completionStatus).length} of {tasks.length} tasks completed
         </p>
       </div>
