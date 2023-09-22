@@ -137,7 +137,7 @@ const ToDoList = ({ roomId }: ToDoListProps) => {
               </span>
             </label>
             <button
-              className="btn btn-outline btn-square btn-danger"
+              className="btn btn-outline btn-square btn-danger btn-sm"
               onClick={async (e) => {
                 e.preventDefault();
                 const taskId = task.id.toString();
