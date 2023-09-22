@@ -74,9 +74,9 @@ export default function Home() {
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img src="/thumbnail.png" className="max-w-sm rounded-lg shadow-2xl" />
           <div>
-            <h1 className="text-7xl font-bold text-primary-content">Welcome to your 
+            <h1 className="text-7xl font-bold text-base-100">Welcome to your 
             virtual study room</h1>
-            <p className="py-6"> Your study room to connect and complete the homework.
+            <p className="py-6 text-base-100"> Your study room to connect and complete the homework.
              Try new way manage the tasks</p>
           </div>
         </div>

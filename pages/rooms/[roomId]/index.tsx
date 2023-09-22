@@ -20,26 +20,37 @@ import StudyRoomPrismaClient from '@/lib/db';
 import styles from "./index.module.css";
 import Link from 'next/link';
 import YoutubePlayer from '../../../components/YoutubePlayer';
+import CopyButton from '../../../components/CopyButton';
+
 
 
 
 const InviteCodeModal = ({ inviteCode }: { inviteCode: string | null }) => {
+    const textToCopy = inviteCode ?? '';
+
     return (
         <dialog id="invite_code_modal" className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg text-primary">Invite a friend!</h3>
                 <p className="py-4 text-primary-content">You can invite a friend by sharing this code and linking them to this page</p>
-                <p className="text-center text-accent text-bold">{inviteCode}</p>
+                <div className="flex justify-content- items-center">
+                    <p className="flex text-center text-accent text-bold items-center ml-4">{inviteCode || ''}</p>
+                    <div className="flex-1 p-2">
+                        
+                        <CopyButton textToCopy={textToCopy} />
+                    </div>
+                </div>
 
                 <div className=" flex modal-action">
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm btn-circle btn-neutral absolute right-2 top-2">✕</button>
-                  
-                   
-                </form>
+
+
+
+                    </form>
+                </div>
             </div>
-        </div>
         </dialog >
     )
 }
@@ -149,7 +160,7 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
 
                 <ul className=" navbar-center menu menu-horizontal menu-xs  bg-secondary rounded-box">
                     <li>
-                        <h4 className="text-5xs text-primary-content">Zoe&apos;s room</h4>
+                        <h4 className="text-5xs text-primary-content">Your&apos;s room</h4>
                     </li>
                     <li>
 
@@ -181,89 +192,90 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
                 </div>
             </div>
 
+            <div className="body">
+                <div className="drawer lg:drawer-open">
+                    <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+                    <div className="drawer-content">
+                        {/* <label htmlFor="my-drawer" className="btn btn-primary drawer-button">Open drawer</label> */}
 
-            <div className="drawer lg:drawer-open">
-                <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content">
-                    {/* <label htmlFor="my-drawer" className="btn btn-primary drawer-button">Open drawer</label> */}
-
-                    <Background imageUrl={selectedImageUrl}>
-                        <div>
-                            <div className={styles.video_call}>
-                                {(showVideo) ? <VideoRoom /> : <></>}
-                            </div>
-
-
-                            <div className="relative z-1 inset-x-0 bottom-20 flex justify-center" style={{ background: "transparent" }}>
-                                <BackgroundSwitcher
-                                    onImageChange={handleImageChange}
-                                    imageLibrary={imageLibrary}
-                                />
-                            </div>
-                            <ChatComponent />
-                        </div>
-
-                    </Background>
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-                </div>
-                <div className="drawer-side w-16">
-                    <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-96 max-w-96 bg-neutral text-base-content z-10 mb-20 overflow-y-scroll">
-                        {/* Sidebar content here */}
-                        {/* pomodoro timer */}
-                        <div className="collapse bg-base-100 shadow-xs p-4">
-                            <PomodoroTimer />
-                        </div>
-                        <br></br>
-                        {/* Todo list */}
-                        <div className="collapse bg-base-200 shadow-xl">
-                            <h1 className="card-title text-sm font-medium pl-4 p-2">Todo List</h1>
-                            <TodoList roomId={roomId} />
-                        </div>
-                        <br></br>
-                        {/* Youtube music */}
-                        <div className="collapse bg-base-200 shadow-xl">
-                            <h1 className="card-title text-sm font-medium p-3">Music Player</h1>
-                            <div className="flex">
-                                <div className="flex-1 md:w-2/3 p-2">
-                                    <MusicPlayer videoUrl={currentSong.url} />
+                        <Background imageUrl={selectedImageUrl}>
+                            <div>
+                                <div className={styles.video_call}>
+                                    {(showVideo) ? <VideoRoom /> : <></>}
                                 </div>
 
-                                <div className=" p-4">
-                                    {/* <h2 className="text-lg font-semibold mb-4">{currentSong.title}</h2> */}
 
-                                    <button
-                                        className="btn btn-primary text-primary-content p-2 ml-2"
-                                        onClick={playNextSong}
-                                    >
-                                        Next Song
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <br></br>
-                        <div className="collapse bg-base-200 shadow-xl">
-                            <div className=" items-center justify-between p-2">
-                                <h1 className="card-title text-sm font-medium p-2">Media</h1>
-                                <div className="p-2">
-                                    <MusicPlayer videoUrl={youtubeUrl} />
-                                    <input
-                                        type="text"
-                                        className="input w-full input-sm max-w-xxs p-2 mt-2"
-                                        placeholder="Paste YouTube Id here"
-                                        value={youtubeUrl}
-                                        onChange={handleInputChange}
+                                <div className="relative z-1 inset-x-0 bottom-20 flex justify-center" style={{ background: "transparent" }}>
+                                    <BackgroundSwitcher
+                                        onImageChange={handleImageChange}
+                                        imageLibrary={imageLibrary}
                                     />
                                 </div>
+                                <ChatComponent />
                             </div>
 
-                        </div>
+                        </Background>
+                        <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                    </div>
+                    <div className="drawer-side w-16">
+                        <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+                        <ul className="menu p-4 w-96 max-w-96 bg-neutral text-base-content z-10 mb-20 overflow-y-scroll">
+                            {/* Sidebar content here */}
+                            {/* pomodoro timer */}
+                            <div className="collapse bg-base-100 shadow-xs p-4">
+                                <PomodoroTimer />
+                            </div>
+                            <br></br>
+                            {/* Todo list */}
+                            <div className="collapse bg-base-200 shadow-xl">
+                                <h1 className="card-title text-sm font-medium pl-4 p-2">Todo List</h1>
+                                <TodoList roomId={roomId} />
+                            </div>
+                            <br></br>
+                            {/* Youtube music */}
+                            <div className="collapse bg-base-200 shadow-xl">
+                                <h1 className="card-title text-sm font-medium p-3">Music Player</h1>
+                                <div className="flex">
+                                    <div className="flex-1 md:w-2/3 p-2">
+                                        <MusicPlayer videoUrl={currentSong.url} />
+                                    </div>
 
-                        <br></br>
-                    </ul>
+                                    <div className=" p-4">
+                                        {/* <h2 className="text-lg font-semibold mb-4">{currentSong.title}</h2> */}
+
+                                        <button
+                                            className="btn btn-primary text-primary-content p-2 ml-2"
+                                            onClick={playNextSong}
+                                        >
+                                            Next Song
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br></br>
+                            <div className="collapse bg-base-200 shadow-xl">
+                                <div className=" items-center justify-between p-2">
+                                    <h1 className="card-title text-sm font-medium p-2">Media</h1>
+                                    <div className="p-2">
+                                        <MusicPlayer videoUrl={youtubeUrl} />
+                                        <input
+                                            type="text"
+                                            className="input w-full input-sm max-w-xxs p-2 mt-2"
+                                            placeholder="Paste YouTube Id here"
+                                            value={youtubeUrl}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <br></br>
+                        </ul>
+                    </div >
                 </div >
-            </div >
-            <InviteCodeModal inviteCode={inviteCode} />
+                <InviteCodeModal inviteCode={inviteCode} />
+            </div>
         </>
     )
 }

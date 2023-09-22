@@ -51,7 +51,7 @@ export const getServerSideProps: GetServerSideProps<MyRoomProps> = async (contex
 const MyRooms: React.FC<MyRoomProps> = ({ rooms }) => {
     const sessionData = useSession();
     return <>
-        <div className="space-y-4 pt-16">
+        <div className="space-y-4 pt-16 bg-base-100">
             <div className="flex justify-center items-center">
                 <h1 className="font-bold text-3xl">My Rooms</h1>
             </div>
