@@ -105,6 +105,7 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
 
     const [showVideo, setShowVideo] = useState(false);
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
+    const [youtubeUrl, setYoutubeUrl] = useState<string>('');
     const currentSong = songs[currentSongIndex];
 
     const playNextSong = () => {
@@ -117,8 +118,6 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
     if (!roomId) {
         return <>Loading...</>
     }
-
-    const [youtubeUrl, setYoutubeUrl] = useState<string>('');
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setYoutubeUrl(e.target.value);
