@@ -36,15 +36,7 @@ const InviteCodeModal = ({ inviteCode }: { inviteCode: string | null }) => {
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm btn-circle btn-neutral absolute right-2 top-2">✕</button>
                   
-                    <div className="modal-action flex-start">
-
-                        <Link href={'/rooms/join'}
-                            className="flex-start btn btn-secondary"
-                        >
-                            Join Room
-                        </Link>
-
-                    </div>
+                   
                 </form>
             </div>
         </div>

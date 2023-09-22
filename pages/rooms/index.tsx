@@ -58,7 +58,20 @@ const MyRooms: React.FC<MyRoomProps> = ({ rooms }) => {
             <div className="flex justify-center items-center">
                 <Link href="/rooms/create">
                     <button className="btn btn-primary">Create New Room</button>
+                    <h2 className="flex text text-xl text-primary-content justify-center items-center">Or</h2>
                 </Link>
+            </div>
+            <div>
+               
+            </div>
+            <div className="flex justify-center items-center">
+
+                <Link href={'/rooms/join'}
+                    className="flex-start btn btn-secondary"
+                >
+                    Join Room
+                </Link>
+
             </div>
 
             <div className="flex justify-center items-center grid grid-cols-1 space-y-3">
