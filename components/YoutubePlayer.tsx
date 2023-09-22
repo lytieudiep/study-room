@@ -15,7 +15,7 @@ const YoutubePlayer: React.FC<YoutubePlayerProps> = ({ youtubeUrl }) => {
 
   return (
     <div className="music-player rounded-lg">
-      <YouTube videoId={videoId} opts={{ width: '100%' }} />
+      {videoId ? <YouTube videoId={videoId} opts={{ width: '100%' }} /> : null}
       <button onClick={() => setIsPlaying(!isPlaying)}>
         {isPlaying ? 'Pause' : 'Play'}
       </button>
