@@ -231,7 +231,7 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
                         <br></br>
                         {/* Youtube music */}
                         <div className="collapse bg-base-200 shadow-xl">
-                            <h1 className="card-title text-sm font-medium p-2">Music Player</h1>
+                            <h1 className="card-title text-sm font-medium p-3">Music Player</h1>
                             <div className="flex">
                                 <div className="flex-1 md:w-2/3 p-2">
                                     <MusicPlayer videoUrl={currentSong.url} />
@@ -241,7 +241,7 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
                                     {/* <h2 className="text-lg font-semibold mb-4">{currentSong.title}</h2> */}
 
                                     <button
-                                        className="btn btn-primary p-2 text-primary-content"
+                                        className="btn btn-primary text-primary-content p-2 ml-2"
                                         onClick={playNextSong}
                                     >
                                         Next Song

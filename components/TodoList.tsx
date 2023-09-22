@@ -101,7 +101,7 @@ const ToDoList = ({ roomId }: ToDoListProps) => {
           onChange={(e) => setNewTask(e.target.value)}
         />
         <button
-          className="btn btn-primary btn-sm"
+          className="btn btn-primary btn-sm ml-2"
           onClick={async (e) => {
             if (newTask) {
               e.preventDefault();
