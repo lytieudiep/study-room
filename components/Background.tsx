@@ -10,7 +10,6 @@ interface BackgroundProps {
 const Background = ({ imageUrl, children }: BackgroundProps) => {
   return (
     <>
-
       <div className={styles.video_background}>
         <video autoPlay={true} muted={true} loop={true} id="bgVideo">
           <source src={imageUrl} type="video/webm" >

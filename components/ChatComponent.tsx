@@ -73,10 +73,10 @@ function ChatComponent() {
         return <div className="fixed bottom-0 right-0 justify-end items-end h-auto h-max-96">
             <div className="bg-base-100 px-4 py-4 rounded-md space-y-2">
                 <span className="flex justify-between">
-                    <div className="text-xl font-medium text-neutral">Chat room</div>
+                    <div className="text-xl font-medium text-primary-content">Chat room</div>
 
                     <button
-                        className="btn btn-circle btn-ghost btn-xs ml-auto"
+                        className="btn btn-circle btn-neutral btn-xs ml-auto"
                         onClick={() => { setOpen(false) }}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -136,7 +136,7 @@ function ChatComponent() {
         return <div className="relative">
             <div className="fixed bottom-5 right-5 flex justify-end items-end">
                 <button
-                    className=" btn btn-primary px-4 py-2 rounded-3xl"
+                    className=" btn btn-primary"
                     onClick={() => { setOpen(true) }}>Open Chat</button>
             </div>
 

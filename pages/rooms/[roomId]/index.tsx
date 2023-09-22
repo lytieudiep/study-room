@@ -27,18 +27,28 @@ const InviteCodeModal = ({ inviteCode }: { inviteCode: string | null }) => {
     return (
         <dialog id="invite_code_modal" className="modal">
             <div className="modal-box">
-                <h3 className="font-bold text-lg">Invite a friend!</h3>
-                <p className="py-4">You can invite a friend by sharing this code and linking them to this page</p>
-                <p className="text-center">{inviteCode}</p>
+                <h3 className="font-bold text-lg text-primary">Invite a friend!</h3>
+                <p className="py-4 text-primary-content">You can invite a friend by sharing this code and linking them to this page</p>
+                <p className="text-center text-accent text-bold">{inviteCode}</p>
 
-                <div className="modal-action">
+                <div className=" flex modal-action">
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
-                        <button className="btn">Close</button>
-                    </form>
-                </div>
+                        <button className="btn btn-sm btn-circle btn-neutral absolute right-2 top-2">✕</button>
+                  
+                    <div className="modal-action flex-start">
+
+                        <Link href={'/rooms/join'}
+                            className="flex-start btn btn-secondary"
+                        >
+                            Join Room
+                        </Link>
+
+                    </div>
+                </form>
             </div>
-        </dialog>
+        </div>
+        </dialog >
     )
 }
 
@@ -132,27 +142,29 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
 
 
             {/* centered items in nav bar */}
-            <div className="navbar bg-base-100 " >
-                <div className="navbar-start">
+            <div className="navbar navbar-sm bg-base-100 " >
+                <div className="navbar-start p-2">
 
                     <Link href={'/rooms'}
-                        className="btn btn-secondary"
+                        className="btn btn-primary p-2"
                     >
                         My Rooms
                     </Link>
 
                 </div>
 
-                <ul className=" navbar-center menu menu-horizontal menu-xs  bg-neutral rounded-box">
+
+
+                <ul className=" navbar-center menu menu-horizontal menu-xs  bg-secondary rounded-box">
                     <li>
-                        <h4 className="text-5xs text-base-100">Zoe&apos;s room</h4>
+                        <h4 className="text-5xs text-primary-content">Zoe&apos;s room</h4>
                     </li>
                     <li>
 
                         <button aria-label="invite friend" onClick={() => {
                             // @ts-ignore
                             document.getElementById('invite_code_modal')?.showModal();
-                        }} className="btn btn-primary btn-xs">Invite friend</button>
+                        }} className="btn btn-info btn-xs">Invite friend</button>
 
                     </li>
                     {/* <li>
@@ -246,7 +258,7 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
                                     <input
                                         type="text"
                                         className="input w-full input-sm max-w-xxs p-2 mt-2"
-                                        placeholder="Paste YouTube id here"
+                                        placeholder="Paste YouTube Id here"
                                         value={youtubeUrl}
                                         onChange={handleInputChange}
                                     />
