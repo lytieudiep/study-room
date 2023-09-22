@@ -11,8 +11,8 @@ const MusicPlayer: React.FC<YouTubePlayerProps> = ({ videoUrl }) => {
 
 
   const opts = {
-    height: '190',
-    width: '340',
+    height: '120',
+    width: '240',
     playerVars: {
       autoplay: 1,
     },
@@ -30,8 +30,6 @@ const MusicPlayer: React.FC<YouTubePlayerProps> = ({ videoUrl }) => {
         <YouTube videoId={videoUrl} opts={opts} onReady={onReady} />
       </div>
 
-    
-    
     </div>
 
      

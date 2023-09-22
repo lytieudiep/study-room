@@ -95,13 +95,13 @@ const ToDoList = ({ roomId }: ToDoListProps) => {
       <div className="flex">
         <input
           type="text"
-          className="input w-full "
+          className="input w-full  input-sm"
           placeholder="Add a new task..."
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
         />
         <button
-          className="btn btn-primary"
+          className="btn btn-primary btn-sm"
           onClick={async (e) => {
             if (newTask) {
               e.preventDefault();
@@ -120,7 +120,7 @@ const ToDoList = ({ roomId }: ToDoListProps) => {
             <label className="inline-flex items-center">
               <input
                 type="checkbox"
-                className="form-checkbox text-primary"
+                
                 checked={task.completionStatus}
                 onChange={async (e) => {
                   const completionStatus = !task.completionStatus;

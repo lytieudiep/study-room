@@ -19,6 +19,8 @@ import { GetServerSideProps } from "next";
 import StudyRoomPrismaClient from '@/lib/db';
 import styles from "./index.module.css";
 import Link from 'next/link';
+import YoutubePlayer from '../../../components/YoutubePlayer';
+
 
 
 const InviteCodeModal = ({ inviteCode }: { inviteCode: string | null }) => {
@@ -116,6 +118,12 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
         return <>Loading...</>
     }
 
+    const [youtubeUrl, setYoutubeUrl] = useState<string>('');
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setYoutubeUrl(e.target.value);
+    }
+
     return (
         <>
             <Head>
@@ -136,7 +144,7 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
 
                 </div>
 
-                <ul className=" navbar-center menu menu-horizontal menu-xs  bg-neutral-content rounded-box">
+                <ul className=" navbar-center menu menu-horizontal menu-xs  bg-neutral rounded-box">
                     <li>
                         <h4 className="text-5xs text-base-100">Zoe&apos;s room</h4>
                     </li>
@@ -145,14 +153,14 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
                         <button aria-label="invite friend" onClick={() => {
                             // @ts-ignore
                             document.getElementById('invite_code_modal')?.showModal();
-                        }} className="btn btn-secondary btn-xs">Invite friend</button>
+                        }} className="btn btn-primary btn-xs">Invite friend</button>
 
                     </li>
                     {/* <li>
-                            <a className="tooltip primary" data-tip="Details">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            </a>
-                        </li> */}
+                        <a className="tooltip primary" data-tip="Details">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </a>
+                    </li> */}
                     <li>
                         <button aria-label="video call" onClick={() => {
                             setShowVideo(!showVideo);
@@ -206,15 +214,15 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
                         <br></br>
                         {/* Todo list */}
                         <div className="collapse bg-base-200 shadow-xl">
-                            <h1 className="collapse-title text-md font-medium">Todo List</h1>
+                            <h1 className="card-title text-sm font-medium pl-4 p-2">Todo List</h1>
                             <TodoList roomId={roomId} />
                         </div>
                         <br></br>
                         {/* Youtube music */}
                         <div className="collapse bg-base-200 shadow-xl">
-                            <h1 className="collapse-title text-md font-medium">Music Player</h1>
-                            <div className="">
-                                <div className="md:w-2/3 p-2">
+                            <h1 className="card-title text-sm font-medium p-2">Music Player</h1>
+                            <div className="flex">
+                                <div className="flex-1 md:w-2/3 p-2">
                                     <MusicPlayer videoUrl={currentSong.url} />
                                 </div>
 
@@ -225,17 +233,33 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
                                         className="btn btn-primary p-2 text-primary-content"
                                         onClick={playNextSong}
                                     >
-                                        Play Next Song
+                                        Next Song
                                     </button>
                                 </div>
                             </div>
-
-
                         </div>
                         <br></br>
+                        <div className="collapse bg-base-200 shadow-xl">
+                            <div className=" items-center justify-between p-2">
+                                <h1 className="card-title text-sm font-medium p-2">Media</h1>
+                                <div className="p-2">
+                                    <MusicPlayer videoUrl={youtubeUrl} />
+                                    <input
+                                        type="text"
+                                        className="input w-full input-sm max-w-xxs p-2 mt-2"
+                                        placeholder="Paste YouTube id here"
+                                        value={youtubeUrl}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br></br>
                     </ul>
-                </div>
-            </div>
+                </div >
+            </div >
             <InviteCodeModal inviteCode={inviteCode} />
         </>
     )
