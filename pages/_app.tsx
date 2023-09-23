@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../stylesheets/globals.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 import "../stylesheets/styles.css";
 import { SessionProvider } from "next-auth/react";
