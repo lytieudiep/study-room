@@ -43,7 +43,7 @@ const InviteCodeModal = ({ inviteCode }: { inviteCode: string | null }) => {
                 <div className=" flex modal-action">
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm btn-circle btn-neutral absolute right-2 top-2">✕</button>
+                        <button className="btn btn-sm btn-circle btn-neutral absolute right-2 top-2" aria-label="close">✕</button>
 
 
 
