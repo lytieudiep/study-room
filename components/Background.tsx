@@ -3,18 +3,21 @@ import { ReactNode } from 'react';
 import styles from "./Background.module.css";
 
 interface BackgroundProps {
-  imageUrl: string;
+  videoUrl: string; // Change to videoUrl to match the prop being used
   children: ReactNode;
 }
 
-const Background = ({ imageUrl, children }: BackgroundProps) => {
+const Video = ({ videoUrl }: { videoUrl: string }) => {
+  return <video src={videoUrl} autoPlay={true} muted={true} loop={true} id="bgVideo">
+
+  </video>
+}
+
+const Background = ({ videoUrl, children }: BackgroundProps) => {
   return (
     <>
       <div className={styles.video_background}>
-        <video autoPlay={true} muted={true} loop={true} id="bgVideo">
-          <source src={imageUrl} type="video/webm" >
-          </source>
-        </video>
+        <Video videoUrl={videoUrl} />
         <div className="content">
           {children}
         </div>

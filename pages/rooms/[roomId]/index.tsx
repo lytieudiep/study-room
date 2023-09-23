@@ -99,21 +99,19 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
     const router = useRouter();
     const roomId = router.query.roomId?.toString();
 
-    const imageLibrary = [
+    const videoLibrary = [
         // 'https://cdnb.artstation.com/p/assets/images/images/029/320/295/original/bogdan-mb0sco-coffeeanim.gif?1601147277',
 
 
         'https://studyroomimage1.s3.us-east-2.amazonaws.com/ezgif.com-gif-to-webm.webm',
         'https://studyroomimage1.s3.us-east-2.amazonaws.com/ezgif.com-resize.webm',
-        // 'https://cdnb.artstation.com/p/assets/images/images/025/079/567/original/ngan-pham-lil-ants-anim-test-v06.gif?1584542703',
-        // 'https://steamuserimages-a.akamaihd.net/ugc/831329771678673548/49C66203D4484F804076D9E21376CE55F8BC2DFE/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false',
-        // 'https://media4.giphy.com/media/IuVFGSQZTd6TK/giphy.gif?cid=ecf05e4796x9wxpr4muzt8czviaj5g2ubedb22dj1ofdand8&ep=v1_gifs_search&rid=giphy.gif&ct=g',
+        'https://studyroomimage1.s3.us-east-2.amazonaws.com/ezgif.com-gif-to-webm1.webm',
     ];
 
-    const [selectedImageUrl, setSelectedImageUrl] = useState(imageLibrary[0]); // Set a default image URL
+    const [selectedVideoUrl, setSelectedVideoUrl] = useState(videoLibrary[0]); // Set a default image URL
 
-    const handleImageChange = (imageUrl: string) => {
-        setSelectedImageUrl(imageUrl);
+    const handleVideoChange = (videoUrl: string) => {
+        setSelectedVideoUrl(videoUrl);
     }
 
     const [showVideo, setShowVideo] = useState(false);
@@ -146,10 +144,10 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
 
             {/* centered items in nav bar */}
             <div className="navbar navbar-sm bg-base-100">
-                <div className="navbar-start p-2">
+                <div className="navbar-start">
 
                     <Link href={'/rooms'}
-                        className="btn btn-primary p-2"
+                        className="btn btn-primary"
                     >
                         My Rooms
                     </Link>
@@ -188,17 +186,17 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer" type="checkbox" className="drawer-toggle" />
 
-                <Background imageUrl={selectedImageUrl}>
+                <Background videoUrl={selectedVideoUrl}>
                     <div>
                         <div className={styles.video_call}>
                             {(showVideo) ? <VideoRoom /> : <></>}
                         </div>
 
 
-                        <div className="relative z-1 inset-x-0 bottom-20 flex justify-center" style={{ background: "transparent" }}>
+                        <div className="fixed bottom-0 left-0 right-0 flex justify-center" style={{ background: "transparent" }}>
                             <BackgroundSwitcher
-                                onImageChange={handleImageChange}
-                                imageLibrary={imageLibrary}
+                                onVideoChange={handleVideoChange}
+                                videoLibrary={videoLibrary}
                             />
                         </div>
                         <ChatComponent />
