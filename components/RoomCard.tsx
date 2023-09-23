@@ -2,20 +2,30 @@
 import { RoomTruncated } from '@/entities/rooms';
 import React from 'react';
 
-const RoomCard = ({ room }: { room: RoomTruncated }) => {
+const RoomCard = ({ room, index }: { room: RoomTruncated, index: number }) => {
+  const backgroundImages = ['/thumbnail1.png', '/thumbnail2.png', '/thumbnail3.png'];
+  const selectedBackgroundImage = backgroundImages[index % 3];
+
+
   return (
-    <div className=" bg-base-200">
-    <div className="flex justify-center items-center">
-      <div className="w-80 bg-base-100 rounded-lg shadow-md p-4">
-        {(room.backgroundImage) ?
-          <img src={room.backgroundImage || ""} alt={room.name} className="h-48 object-cover rounded-lg mb-4" />
-          : null}
-        <h3 className="text-xl font-semibold mb-2 text-primary-content">{room.id} {room.name}</h3>
-        <a href={`/rooms/${room.id}`} className="bg-secondary hover:bg-secondary-focus text-white py-2 px-4 rounded-lg inline-block">
-          Go to Space
-        </a>
+    <div className="card w-96 bg-base-100 shadow-xl">
+      <figure><img src={selectedBackgroundImage} alt="image" /></figure>
+      <div className="card-body">
+
+        <div className=" justify-center items-center">
+          <div className="">
+            {(room.backgroundImage) ?
+              <img src={room.backgroundImage || ""} alt={room.name} className="h-48 object-cover rounded-lg mb-4" />
+              : null}
+            <h3 className="card-title text-primary-content p-2">{room.id} {room.name}</h3>
+            <div className="card-actions">
+              <a href={`/rooms/${room.id}`} className="btn btn-accent">
+                Go to Room
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

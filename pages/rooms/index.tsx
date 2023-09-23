@@ -62,7 +62,7 @@ const MyRooms: React.FC<MyRoomProps> = ({ rooms }) => {
                 </Link>
             </div>
             <div>
-               
+
             </div>
             <div className="flex justify-center items-center">
 
@@ -74,13 +74,16 @@ const MyRooms: React.FC<MyRoomProps> = ({ rooms }) => {
 
             </div>
 
-            <div className="flex justify-center items-center grid grid-cols-1 space-y-3">
-                {rooms?.map((room) => {
-                    return <div key={room.id}>
-                        <RoomCard room={room} />
+            <div className="mx-auto max-w-4xl">
+                <div className="grid grid-cols-2 gap-4 auto-rows-max">
+                    {rooms?.map((room, index) => {
+                        return <div key={room.id} className="p-2">
+                        <RoomCard index={index} room={room} />
                     </div>
-                })}
+                    })}
+                </div>
             </div>
+
         </div>
     </>
 }

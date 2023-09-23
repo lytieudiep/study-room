@@ -139,6 +139,13 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
             <Head>
                 <title>Main study room</title>
                 <meta name="Study room" property="og:title" content="Study room" key="title" lang="en" />
+                <style>
+                    {`
+                        body {
+                        overflow: hidden;
+                        }
+                    `}
+                </style>
             </Head>
 
 
