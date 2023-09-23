@@ -146,6 +146,8 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
                         }
                     `}
                 </style>
+                <Link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> </Link>
+
             </Head>
 
 
