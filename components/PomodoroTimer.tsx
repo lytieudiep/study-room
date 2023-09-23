@@ -49,7 +49,14 @@ const Pomodoro: React.FC = () => {
     }
   }, [isRunning, minutes, seconds]);
 
+  const playStartSound = () => {
+    if (startSoundRef.current) {
+      startSoundRef.current.play();
+    }
+  };
+
   const startTimer = () => {
+    playStartSound();
     startSoundRef.current?.play();
     setIsRunning(true);
   };
@@ -119,6 +126,7 @@ const Pomodoro: React.FC = () => {
                 className="input input-primary ml-2 w-1/2"
               />
             </div>
+            <audio ref={startSoundRef} src="/start-sound.mp3" />
           </div>
 
         </div>
