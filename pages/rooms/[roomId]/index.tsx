@@ -20,6 +20,8 @@ import StudyRoomPrismaClient from '@/lib/db';
 import styles from "./index.module.css";
 import Link from 'next/link';
 import CopyButton from '../../../components/CopyButton';
+import { Helmet } from 'react-helmet';
+
 
 
 
@@ -149,7 +151,9 @@ export default function RoomPage({ inviteCode, roomName }: RoomPageProps) {
                     `}
                 </style>
             </Head>
-
+            <Helmet>
+                <link rel="preconnect" href="https://focuszone.net" />
+            </Helmet>
 
             {/* centered items in nav bar */}
             <div className="navbar navbar-sm bg-base-100">
@@ -176,7 +180,7 @@ export default function RoomPage({ inviteCode, roomName }: RoomPageProps) {
 
                     </li>
                     <li>
-                        <button aria-label="video call" onClick={() => {
+                        <button id="text" aria-label="video call" onClick={() => {
                             setShowVideo(!showVideo);
                         }} className="tooltip" data-tip="Open video">
                             <FiVideo></FiVideo>

@@ -24,6 +24,7 @@ const CopyButton = ({ textToCopy }: CopyButtonProps) => {
     return (
         <div className="justify-content items-center">
             <button
+                aria-label="Copy to clipboard"
                 className={`btn ${isCopied ? 'btn-success' : 'btn-neutral-content btn-sm'}`}
                 onClick={copyToClipboard}
                 disabled={isCopied}
