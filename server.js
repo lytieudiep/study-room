@@ -7,7 +7,7 @@ const CHAT_SECRET = "CHAT_SECRET";
 const app = App();
 const io = new Server({
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://focuszone.net"],
     methods: ["GET", "POST"]
   }
 });
