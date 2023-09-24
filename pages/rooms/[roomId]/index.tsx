@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PomodoroTimer from '../../../components/PomodoroTimer';
 import TodoList from '../../../components/TodoList';
 import MusicPlayer from '../../../components/MusicPlayer';
@@ -55,6 +55,7 @@ const InviteCodeModal = ({ inviteCode }: { inviteCode: string | null }) => {
 }
 
 interface RoomPageProps {
+    roomName: string | null,
     roomId: number | null,
     inviteCode: string | null
 }
@@ -69,6 +70,7 @@ export const getServerSideProps: GetServerSideProps<RoomPageProps> = async (cont
         console.log(error);
         return {
             props: {
+                roomName: null,
                 roomId: null,
                 inviteCode: null
             }
@@ -86,6 +88,7 @@ export const getServerSideProps: GetServerSideProps<RoomPageProps> = async (cont
 
     return {
         props: {
+            roomName: room?.name || null,
             roomId: roomIdInt,
             inviteCode: inviteCode || null
         }
@@ -93,7 +96,7 @@ export const getServerSideProps: GetServerSideProps<RoomPageProps> = async (cont
 }
 
 
-export default function RoomPage({ inviteCode }: RoomPageProps) {
+export default function RoomPage({ inviteCode, roomName }: RoomPageProps) {
 
     const router = useRouter();
     const roomId = router.query.roomId?.toString();
@@ -136,7 +139,7 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
     return (
         <>
             <Head>
-                <title>Main study room</title>
+                <title>{roomName}</title>
                 <meta name="Study room" property="og:title" content="Study room" key="title" lang="en" />
                 <style>
                     {`
@@ -162,7 +165,7 @@ export default function RoomPage({ inviteCode }: RoomPageProps) {
 
                 <ul className=" navbar-center menu menu-horizontal menu-xs  bg-secondary rounded-box">
                     <li>
-                        <h4 className="text-5xs text-primary-content">Your&apos;s room</h4>
+                        <h4 className="text-5xs text-primary-content">{roomName}</h4>
                     </li>
                     <li>
 
