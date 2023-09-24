@@ -4,9 +4,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head'
+import { Transition } from '@headlessui/react';
+
 
 
 export default function Home() {
+    const [isVisible, setIsVisible] = useState(false);
+  
+    useEffect(() => {
+      // Trigger the animation after a delay (e.g., 2 seconds)
+      setTimeout(() => {
+        setIsVisible(true);
+      }, 2000);
+    }, []);
 
   const session = useSession();
   const loggedIn = session.status == "authenticated";
@@ -69,7 +79,7 @@ export default function Home() {
       </div>
 
       {/* Hero */}
-      <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://images.pexels.com/photos/6985132/pexels-photo-6985132.jpeg)' }}>
+      <div className="hero min-h-screen" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1554034483-04fda0d3507b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2970&q=80)' }}>
 
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img src="/thumbnail.png" className="max-w-sm rounded-lg shadow-2xl" />
@@ -81,6 +91,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+    
 
 
     </>

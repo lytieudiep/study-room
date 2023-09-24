@@ -3,7 +3,7 @@ import io, { Socket } from 'socket.io-client';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ChatMessage } from '@/entities/chat';
-const CHAT_SERVER = "http://localhost:3001";
+const CHAT_SERVER = process.env.NEXT_PUBLIC_CHAT_SERVER;
 
 function ChatComponent() {
     const router = useRouter();
