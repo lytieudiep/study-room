@@ -20,7 +20,6 @@ import StudyRoomPrismaClient from '@/lib/db';
 import styles from "./index.module.css";
 import Link from 'next/link';
 import CopyButton from '../../../components/CopyButton';
-import { Helmet } from 'react-helmet';
 
 
 
@@ -142,7 +141,9 @@ export default function RoomPage({ inviteCode, roomName }: RoomPageProps) {
         <>
             <Head>
                 <title>{roomName}</title>
+
                 <meta name="Study room" property="og:title" content="Study room" key="title" lang="en" />
+                <link rel="preconnect" href="https://focuszone.net" />
                 <style>
                     {`
                         body {
@@ -151,9 +152,7 @@ export default function RoomPage({ inviteCode, roomName }: RoomPageProps) {
                     `}
                 </style>
             </Head>
-            <Helmet>
-                <link rel="preconnect" href="https://focuszone.net" />
-            </Helmet>
+
 
             {/* centered items in nav bar */}
             <div className="navbar navbar-sm bg-base-100">
